@@ -1,0 +1,223 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  overflow: hidden; /* 修改：隱藏整個網頁的滾動條，強制在內層滾動 */
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  height: 60px; /* 新增：明確指定高度，方便計算 */
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 13px;
+  margin-right: 15px;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 13px;
+  margin-left: 15px;
+}
+
+/* 主要內容區域的包裹器 */
+.main-content-wrapper {
+  display: flex;
+  padding-top: 60px; /* Header 高度 */
+  padding-left: 5%;
+  padding-right: 10%;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh; /* 新增：讓包裹器佔滿整個螢幕高度 */
+  overflow: hidden; /* 新增：防止內容溢出包裹器 */
+}
+
+/* 左側欄 - 獨立滾動區域 */
+.left-column {
+  width: 25%;
+  padding: 20px;
+  box-sizing: border-box;
+  
+  /* 修改定位方式 */
+  /* position: sticky;  不需要 sticky 了，因為外層高度固定 */
+  
+  height: 100%; /* 修改：佔滿 wrapper 的剩餘高度 (100vh - 60px) */
+  overflow-y: auto; /* 修改：開啟垂直滾動 */
+  overscroll-behavior: contain; /* 新增：防止滾動傳遞給父層 (優化體驗) */
+}
+
+/* 右側欄 - 獨立滾動區域 */
+.right-column {
+  width: 75%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 40px;
+
+  height: 100%; /* 新增：限制高度以啟用內部滾動 */
+  overflow-y: auto; /* 新增：開啟垂直滾動 */
+  overscroll-behavior: contain; /* 新增：防止滾動傳遞 */
+}
+
+/* 為了美觀，可以隱藏或自定義滾動條 (選用) */
+/* Chrome, Safari, Edge */
+.left-column::-webkit-scrollbar,
+.right-column::-webkit-scrollbar {
+  width: 6px;
+}
+.left-column::-webkit-scrollbar-track,
+.right-column::-webkit-scrollbar-track {
+  background: transparent;
+}
+.left-column::-webkit-scrollbar-thumb,
+.right-column::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+
+/* 以下 section 與 project-card 樣式保持原樣，不需更動 */
+.section {
+  margin-bottom: 40px;
+}
+.section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.section h3 {
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.section ol {
+  list-style: none;
+  padding: 0;
+}
+.section li a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.project-card {
+  background: #fff;
+  width: calc(260px + 346px);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  overflow: hidden;
+  transition: transform 0.3s;
+  cursor: pointer;
+  flex-shrink: 0; /* 新增：防止在 flex column 中被壓縮 */
+}
+.project-card:hover {
+  transform: scale(1.01);
+}
+
+.project-info {
+  width: 260px;
+  flex-shrink: 0;
+  padding: 20px 15px;
+  color: #333;
+  font-size: 14px;
+  position: relative;
+  height: 346px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.project-info h4 {
+  font-size: 18px;
+  text-align: left;
+  position: absolute;
+  top: 25%;
+  left: 15px;
+  transform: translateY(-50%);
+  width: calc(100% - 30px);
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.date-course-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.date-course-wrapper p {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.project-info .material {
+  margin-bottom: 5px;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.project-info .description {
+  text-align: left;
+  line-height: 1.4;
+}
+
+.project-card img {
+  width: 346px;
+  height: 346px;
+  object-fit: cover;
+}
+
+/* Lightbox 樣式 (保持不變) */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  text-align: center;
+}
+.lightbox-content {
+  margin-top: 15px;
+  width: 50%;
+  max-width: 660px;
+}
+.close, .prev, .next {
+  position: absolute;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}
+.close { top: 20px; right: 30px; }
+.prev { top: 50%; left: 10px; transform: translateY(-50%); }
+.next { top: 50%; right: 10px; transform: translateY(-50%); }
