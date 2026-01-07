@@ -1,0 +1,13 @@
+{
+  "name": "portfolio_site_lightbox-(1)",
+  "version": "1.0.0",
+  "main": "build-image-data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-images": "node build-image-data.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
